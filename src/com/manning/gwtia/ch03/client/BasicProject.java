@@ -165,11 +165,8 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 		 */
 		content.addSelectionHandler(new SelectionHandler<Integer>() {
 			public void onSelection(SelectionEvent<Integer> event) {
-				// Determine the tab that has been selected by interrogating the event object.
+				
 				Integer tabSelected = event.getSelectedItem();
-
-				// Create a new history item for this tab (using data retrieved from Pages
-				// enumeration)
 				History.newItem(Pages.values()[tabSelected].getText());
 			}
 		});
@@ -181,61 +178,35 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 		 * friendly.
 		 */
 		search.addClickHandler(new ClickHandler() {
+			final TextBox searchTerm = new TextBox();
 			public void onClick(ClickEvent event) {
 				FlowPanel qAnswer;
-				final TextBox searchTerm = new TextBox();
+				//final TextBox searchTerm = new TextBox();
 
-				// If search button is clicked for the first time then the searchRequest Pop-up
-				// panel does not yet exist
-				// so we'll build it first as follows:
 				if (searchRequest == null) {
 					// Create the PopupPanel widget
 					searchRequest = new PopupPanel();
 
-					// Create a FlowPanel to hold the question and answer for the search term
 					qAnswer = new FlowPanel();
-					// Add a Label to the Flow Panel that represents the "Search For" text
-					qAnswer.add(new Label("Search For:"));
-					// Add the answer TextBox (which we declared above) to the FlowPanel
 					qAnswer.add(searchTerm);
 
-					// Add a change handler to the TextBox so that when there is a change to search
-					// term
-					// we would "start" the search (we don't implement the search capability in this
-					// simple example)
 					searchTerm.addChangeHandler(new ChangeHandler() {
 						public void onChange(ChangeEvent event) {
-							// Hide the popup panel from the screen
 							searchRequest.hide();
-							// "start" the search
 							Window.alert("If implemented, now we would search for: " + searchTerm.getText());
 						}
 					});
 
-					// Add the question/answer to the search pop-up.
 					searchRequest.add(qAnswer);
 
-					// Now we'll set some properties on the pop up panel, we'll:
-					// * indicate that the popup should be animated
-					// * show it relative to the search button widget
-					// * close it if the user clicks outside of it popup panel, or if the history
-					// token is changed
 					searchRequest.setAnimationEnabled(true);
 					searchRequest.showRelativeTo(search);
 					searchRequest.setAutoHideEnabled(true);
 					searchRequest.setAutoHideOnHistoryEventsEnabled(true);
 				} else {
-					// search popup already exists, so clear the TextBox contents...
 					searchTerm.setText("");
-					// ... and simply show it.
 					searchRequest.show();
 				}
-
-				// Set the TextBox of the popup Panel to have focus - this means that once the
-				// pop up is displayed
-				// then any keypresses the user makes will appear directly inthe TextBox. If we
-				// didn't do this, then
-				// who knows where the text would appear.
 				searchTerm.setFocus(true);
 			}
 		});
