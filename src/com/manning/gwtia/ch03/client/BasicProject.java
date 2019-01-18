@@ -217,11 +217,8 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 		 */
 		feedback.addMouseOverHandler(new MouseOverHandler() {
 			public void onMouseOver(MouseOverEvent event) {
-				// Remove existing normal style
 				feedback.removeStyleName("normal");
-				// Add the active style
 				feedback.addStyleName("active");
-				// Set overflow of whole HTML page to hidden to minimise display of scroll bars.
 				RootPanel.getBodyElement().getStyle().setProperty("overflow", "hidden");
 			}
 		});
