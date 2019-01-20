@@ -217,11 +217,8 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 		 */
 		feedback.addMouseOverHandler(new MouseOverHandler() {
 			public void onMouseOver(MouseOverEvent event) {
-				// Remove existing normal style
 				feedback.removeStyleName("normal");
-				// Add the active style
 				feedback.addStyleName("active");
-				// Set overflow of whole HTML page to hidden to minimise display of scroll bars.
 				RootPanel.getBodyElement().getStyle().setProperty("overflow", "hidden");
 			}
 		});
@@ -307,7 +304,6 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 	 * Widget.getElement().getStyle() method.
 	 */
 	private void styleButtonUsingDOM() {
-		// Set up some styling on the button
 		search.getElement().getStyle().setProperty("backgroundColor", "#ff0000");
 		search.getElement().getStyle().setProperty("border", "2px solid");
 		search.getElement().getStyle().setOpacity(0.7);
@@ -353,11 +349,8 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 	 * Set up the History management for the application.
 	 */
 	public void setUpHistoryManagement() {
-		// Make this class your history manager (see onValueChange method)
 		History.addValueChangeHandler(this);
-		// Handle any existing history token
 		History.fireCurrentHistoryState();
-		// Trap user hitting back button too many times.
 		Window.addWindowClosingHandler(new ClosingHandler() {
 			public void onWindowClosing(ClosingEvent event) {
 				event.setMessage("Ran out of history.  Now leaving application, is that OK?");
@@ -376,18 +369,16 @@ public class BasicProject implements EntryPoint, ValueChangeHandler<String> {
 	 * example http://www.someurl.se/MyApp.html#home has the token "home".
 	 */
 	public void onValueChange(ValueChangeEvent<String> event) {
-		// Get the token from the event
 		String page = event.getValue().trim();
-		// Check if the token is null or empty
-		if ((page == null) || (page.equals("")))
+		if ((page == null) || (page.equals(""))) {
 			showHomePage();
-		// Else check what the token is and cal the appropriate method.
-		else if (page.equals(Pages.PRODUCTS.getText()))
+		} else if (page.equals(Pages.PRODUCTS.getText())) {
 			showProducts();
-		else if (page.equals(Pages.CONTACT.getText()))
+		} else if (page.equals(Pages.CONTACT.getText())) {
 			showContact();
-		else
+		} else {
 			showHomePage();
+		}
 	}
 
 	/**
